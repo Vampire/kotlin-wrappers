@@ -9,15 +9,14 @@ import io.github.sgrishchenko.karakum.util.ruleOf
 import js.import.import
 import js.objects.recordOf
 import node.path.path
-import node.process.process
 import node.url.fileURLToPath
 
-suspend fun main() {
+suspend fun main(vararg args: String) {
     val nodePackage = import.meta.resolve("@types/node/package.json")
         .let { fileURLToPath(it) }
         .let { path.dirname(it) }
 
-    val outputPath = process.argv[2]
+    val outputPath = args.first()
 
     generate {
         plugins = manyOf("kotlin/plugins/*.js")
